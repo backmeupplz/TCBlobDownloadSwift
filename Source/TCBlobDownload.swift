@@ -57,7 +57,11 @@ public class TCBlobDownload {
     /// Filename with spaces fix
         
         if #available(OSX 10.11, *) {
-            return NSURL(dataRepresentation: data!, relativeToURL: nil)
+            if #available(iOS 9.0, *) {
+                return NSURL(dataRepresentation: data!, relativeToURL: nil)
+            } else {
+                return NSURL()
+            }
         } else {
             return NSURL(string: path.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)!
             
